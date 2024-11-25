@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body,
+      html {
+        padding: 0;
+        margin: 0;
+      }
+      #timer {
+        text-align: center;
+      }
+      .con {
+        width: 90%;
+        margin-left: 5%;
+        margin-bottom: 1%;
+        display: flex;
+        border: 1px solid black;
+        .but {
+          flex: 1;
+          margin-left: 10%;
+        }
+      }
+      #continBut {
+        width: 20%;
+        height: 60px;
+        padding-top: 10px;
+        background-color: aqua;
+        margin: auto;
+        font-size: 2rem;
+        text-align: center;
+      }
+      .bigCon {
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        background-color: aqua;
+        height: 300px;
+        padding-top: 20px;
+        display: flex;
+        #playerCon {
+          flex: 1;
+          width: 30%;
+          height: 90%;
+          margin-left: 5px;
+          margin-right: 5px;
+          background-color: yellow;
+          text-align: center;
+        }
+        #field {
+          flex: 1;
+          width: 30%;
+          height: 90%;
+          margin-left: 5px;
+          margin-right: 5px;
+          background-color: yellow;
+          text-align: center;
+        }
+      }
+      .hisob {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 3rem;
+      }
+      .hisobB {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 3rem;
+      }
+    </style>
+    <title>game</title>
+  </head>
+  <body>
+    <div class="hisob">0</div>
+    <div class="hisobB">0</div>
+    <div id="timer" style="font-size: 5rem">let's begin</div>
+    <div class="bigCon">
+      <div id="playerCon"><img src="" alt="" /></div>
+      <div id="field"><img src="" alt="" /></div>
+    </div>
+    <div class="con">
+      <div id="buttonR" class="but" onclick="choosen(1)">
+        <img src="./imges/quduq.jpeg" alt="no img" />
+      </div>
+      <div id="buttonP" class="but" onclick="choosen(2)">
+        <img src="./imges/qogoz.jpeg" alt="no img" />
+      </div>
+      <div id="buttonS" class="but" onclick="choosen(3)">
+        <img src="./imges/qaychi.jpeg" alt="no img" />
+      </div>
+    </div>
+    <div id="continBut" onclick="continuefun()">continue</div>
+    <script>
+      let timer = document.getElementById("timer");
+      let continueBut = document.getElementById("continBut");
+      let plyerField = document.getElementById("playerCon");
+      let botField = document.getElementById("field");
+      let hands = 0;
+      let handsB = 0;
+
+      let count = 0;
+      let countB = 0;
+
+      function countAdd() {
+        document.querySelector(".hisob").innerText = count;
+        document.querySelector(".hisobB").innerText = countB;
+      }
+
+      function continuefun() {
+        setTimeout(() => {
+          timerFun("3");
+        }, 1000);
+        setTimeout(() => {
+          timerFun("2");
+        }, 2000);
+        setTimeout(() => {
+          timerFun("1");
+        }, 3000);
+        setTimeout(() => {
+          timerFun("Go");
+        }, 4000);
+      }
+
+      function timerFun(a) {
+        timer.innerText = a;
+        if (a == "Go") {
+          botRandom();
+        }
+      }
+
+      function choosen(a) {
+        hands = a;
+        if (a == 1) {
+          plyerField.innerHTML =
+            '<img src="./imges/quduq.jpeg" alt="no img" />';
+        } else if (a == 2) {
+          plyerField.innerHTML =
+            '<img src="./imges/qogoz.jpeg" alt="no img" />';
+        } else if (a == 3) {
+          plyerField.innerHTML =
+            '<img src="./imges/qaychi.jpeg" alt="no img" />';
+        }
+      }
+
+      function choosenB(a) {
+        if (a == 1) {
+          botField.innerHTML = '<img src="./imges/quduq.jpeg" alt="no img" />';
+        } else if (a == 2) {
+          botField.innerHTML = '<img src="./imges/qogoz.jpeg" alt="no img" />';
+        } else if (a == 3) {
+          botField.innerHTML = '<img src="./imges/qaychi.jpeg" alt="no img" />';
+        }
+
+        check();
+      }
+      function botRandom() {
+        handsB = Math.floor(Math.random() * 3) + 1;
+
+        choosenB(handsB);
+      }
+      function check() {
+        if (hands == handsB) {
+          alert("durang");
+        } else if (hands == 1) {
+          if (handsB == 2) {
+            alert("lost");
+            countB++;
+          }
+          if (handsB == 3) {
+            alert("win");
+            count++;
+          }
+        } else if (hands == 2) {
+          if (handsB == 1) {
+            alert("win");
+            count++;
+          }
+          if (handsB == 3) {
+            alert("lost");
+            countB++;
+          }
+        } else if (hands == 3) {
+          if (handsB == 2) {
+            alert("win");
+            count++;
+          }
+          if (handsB == 1) {
+            alert("lost");
+            countB++;
+          }
+        } else if (hands == 0) {
+          alert("lost");
+          countB++;
+        }
+        hands == 0;
+        countAdd();
+      }
+    </script>
+  </body>
+</html>
